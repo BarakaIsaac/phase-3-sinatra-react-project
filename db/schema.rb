@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 2023_07_27_102806) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.string "name"
-    t.string "ingredients"
+    t.string "name", null: false
+    t.text "ingredients"
     t.text "instructions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

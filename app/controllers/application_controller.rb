@@ -17,7 +17,7 @@ class ApplicationController < Sinatra::Base
   recipes = Recipe.where("name LIKE ?", "%#{ingredient}%")
   recipes.to_json
   end
-end
+
 
 
   get "/recipes/:id" do 
@@ -57,13 +57,13 @@ end
 
   #Update operations
 
-  post "/recipes/:id/favorites" do
+  post "/recipes/:id/favourites" do
     recipe = Recipe.find_by(id: params[:id])
 
     if recipe
-      favorite = Favorite.find_or_create_by(recipe_id: recipe.id)
-      favorite.save
-
+      favourite = Favourite.create(recipe_id: recipe.id)
+      favourite.save
+      favourite.json
       {message: "Recipe saved as favorite."}.to_json
     else
       status 404
@@ -79,8 +79,6 @@ end
       note.update(notes: params[:notes])
 
       {message: "Notes updated successfully."}.to_json
-    else
-      status 404
-      {error: "Recipe not found."}.to_json
     end
   end
+end
